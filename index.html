@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>七彩霓虹灯</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+      <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                neonRed: '#FF3333',
+                neonOrange: '#FF9933',
+                neonYellow: '#FFFF33',
+                neonGreen: '#33FF33',
+                neonBlue: '#3399FF',
+                neonIndigo: '#6633FF',
+                neonViolet: '#CC33FF',
+              },
+              fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+              },
+            },
+          }
+        }
+      </script>
+      <style type="text/tailwindcss">
+        @layer utilities {
+          .content-auto {
+            content-visibility: auto;
+          }
+          .neon-text {
+            text-shadow: 0 0 5px rgba(255,255,255,0.8),
+                         0 0 10px rgba(255,255,255,0.5),
+                         0 0 15px currentColor,
+                         0 0 20px currentColor;
+          }
+          .neon-border {
+            box-shadow: 0 0 5px rgba(255,255,255,0.8),
+                        0 0 10px rgba(255,255,255,0.5),
+                        0 0 15px currentColor,
+                        0 0 20px currentColor;
+          }
+        }
+      </style>
+    </head>
+    <body class="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+      <div class="text-center mb-8">
+        <h1 class="text-[clamp(1.5rem,5vw,3rem)] font-bold text-white mb-2">七彩霓虹灯效果展示</h1>
+        <p class="text-gray-400 max-w-md">请先按停止按钮，重启闪光灯，将开始闪烁</p>
+      </div>
+      
+      <div id="neonContainer" class="relative w-full max-w-4xl aspect-video bg-gray-800 rounded-xl overflow-hidden border-4 border-gray-700 shadow-2xl">
+        <!-- 背景星星 -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div id="stars" class="absolute inset-0"></div>
+        </div>
+        
+        <!-- 七个霓虹灯 -->
+        <div id="neonLights" class="absolute inset-0 flex items-center justify-center p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6 w-full">
+            <!-- 霓虹灯1 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light1" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #FF3333;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 1</span>
+            </div>
+            
+            <!-- 霓虹灯2 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light2" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #FF9933;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 2</span>
+            </div>
+            
+            <!-- 霓虹灯3 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light3" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #FFFF33;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 3</span>
+            </div>
+            
+            <!-- 霓虹灯4 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light4" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #33FF33;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 4</span>
+            </div>
+            
+            <!-- 霓虹灯5 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light5" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #3399FF;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 5</span>
+            </div>
+            
+            <!-- 霓虹灯6 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light6" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #6633FF;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 6</span>
+            </div>
+            
+            <!-- 霓虹灯7 -->
+            <div class="neon-light bg-gray-900 rounded-lg p-4 flex flex-col items-center transition-all duration-300 transform hover:scale-105">
+              <div class="w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-gray-700 flex items-center justify-center mb-3">
+                <div id="light7" class="w-12 h-12 md:w-16 md:h-16 rounded-full neon-border" style="background-color: #CC33FF;"></div>
+              </div>
+              <span class="text-white text-sm md:text-base font-medium">灯 7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-8 bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md">
+        <div class="flex justify-center space-x-4">
+          <button id="startBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-all duration-300 flex items-center shadow-lg hover:shadow-green-500/30">
+            <i class="fa-solid fa-play mr-2"></i> 启动
+          </button>
+          <button id="stopBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all duration-300 flex items-center shadow-lg hover:shadow-red-500/30">
+            <i class="fa-solid fa-stop mr-2"></i> 停止
+          </button>
+        </div>
+      </div>
+      
+      <script>
+        
+        const colors = [
+          'neonRed',      
+          'neonOrange',   
+          'neonYellow',   
+          'neonGreen',    
+          'neonBlue',     
+          'neonIndigo',   
+          'neonViolet'    
+        ];
+        
+        
+        const colorHex = {
+          'neonRed': '#FF3333',
+          'neonOrange': '#FF9933',
+          'neonYellow': '#FFFF33',
+          'neonGreen': '#33FF33',
+          'neonBlue': '#3399FF',
+          'neonIndigo': '#6633FF',
+          'neonViolet': '#CC33FF'
+        };
+        
+        
+        let currentColorIndex = 0;
+        
+        
+        const flashInterval = 1000;
+        
+        
+        let flashTimer = null;
+        
+        
+        let isRunning = true;
+        
+        
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        
+        
+        function createStars() {
+          const starsContainer = document.getElementById('stars');
+          const starsCount = 100;
+          
+          for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            const size = Math.random() * 3 + 1;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const opacity = Math.random() * 0.8 + 0.2;
+            const animationDelay = Math.random() * 5;
+            
+            star.style.cssText = `
+              position: absolute;
+              width: ${size}px;
+              height: ${size}px;
+              background-color: rgba(255, 255, 255, ${opacity});
+              border-radius: 50%;
+              left: ${x}%;
+              top: ${y}%;
+              box-shadow: 0 0 ${size + 2}px white;
+              animation: blink ${Math.random() * 3 + 2}s infinite ${animationDelay}s;
+            `;
+            
+            starsContainer.appendChild(star);
+          }
+        }
+        
+        
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+          }
+          
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+          
+          @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        
+        function updateNeonColor() {
+          
+          const lights = Array.from({ length: 7 }, (_, i) => document.getElementById(`light${i + 1}`));
+          
+          
+          lights.forEach((light, index) => {
+            
+            const colorIndex = (currentColorIndex + index) % colors.length;
+            const color = colors[colorIndex];
+            const hexColor = colorHex[color];
+            
+            
+            light.style.backgroundColor = hexColor;
+            light.style.boxShadow = `0 0 5px rgba(255,255,255,0.8),
+                                   0 0 10px rgba(255,255,255,0.5),
+                                   0 0 15px ${hexColor},
+                                   0 0 20px ${hexColor}`;
+            
+            
+            light.style.animation = `blink 1s infinite ${index * 0.1}s`;
+          });
+          
+          
+          currentColorIndex = (currentColorIndex + 1) % colors.length;
+        }
+        
+        
+        function startNeonEffect() {
+          if (!isRunning) {
+            flashTimer = setInterval(updateNeonColor, flashInterval);
+            isRunning = true;
+            
+            
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            stopBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          }
+        }
+        
+        
+        function stopNeonEffect() {
+          if (isRunning) {
+            clearInterval(flashTimer);
+            isRunning = false;
+            
+            
+            const lights = Array.from({ length: 7 }, (_, i) => document.getElementById(`light${i + 1}`));
+            lights.forEach(light => {
+              light.style.backgroundColor = '#333';
+              light.style.boxShadow = 'none';
+              light.style.animation = 'none';
+            });
+            
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            stopBtn.classList.add('opacity-50', 'cursor-not-allowed');
+          }
+        }
+        
+        
+        window.addEventListener('DOMContentLoaded', () => {
+          createStars();
+          startNeonEffect();
+          startBtn.addEventListener('click', startNeonEffect);
+          stopBtn.addEventListener('click', stopNeonEffect);
+        });
+      </script>
+    </body>
+    </html>
+  
